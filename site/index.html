@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"> 
+  <title>Análisis de Ley de Benford para datos CSV</title>
+
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" type="text/css">
+  <!-- <link rel="stylesheet" href="css/edit.css" type="text/css"> -->
+
+  <meta name="description" content="Fake data detection tool using Benford's Law">
+  <link rel="icon" href="images/benford.png">
+  
+
+</head>
+
+<body>
+
+    <div id="header">
+      <img id="logo" src="images/benford.png" alt="Benford's Law">
+
+      <h1>Análisis de Ley de Benford para datos CSV</h1>
+
+    </div> <!-- header -->
+
+    <div id="upload">
+
+        <!-- Submitter form, gets HTTP 204 so it doesn't change page  -->
+        <form name="csv-file-upload" action="cgi-bin/csv-benford.py" method="post"
+                enctype="multipart/form-data">
+            <fieldset>
+                <legend>Elija el archivo CSV a analizar:</legend>
+                <input type="hidden" name="csv-name"
+                        value="csv/original/${filename}">
+                <input type="hidden" name="acl" value="public-read">
+                <input type="hidden" name="Content-Type"
+                        value="text/csv;charset=UTF-8">
+                <input type="file" name="filename"><br>
+                <input type="submit" name="submit" value="Enviar">
+            </fieldset>
+        </form>
+    </div> <!-- csv-upload -->
+
+    <div id="csv-column-pick">
+
+            <select id="csv-fields" name="csv-fields">
+                <option value="invalid">columna a agrupar</option>
+            </select>
+            <select id="css-to" name="css-to">
+                <option value="invalid">columna numérica</option>
+            </select>
+            <button id="css-styles-change" disabled="disabled">Analizar</button>
+        </div>
+
+    </div>
+
+    <!-- Submitter form, gets HTTP 204 so it doesn't change page  -->
+
+    <script type="text/javascript" src="js/jquery-1.5.js"></script>
+    <script type="text/javascript" src="js/upload.js"></script>
+    <!-- <script type="text/javascript" src="js/benford.js"></script> -->
+    
+</body>
+</html>
