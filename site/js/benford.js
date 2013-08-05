@@ -34,11 +34,9 @@ function uploader() {
 }
 
 function fillColumns(){
-    // Find classes not belonging to tinyMCE
-    // Split the classes from original stylesheets and from eudeba.css
 
     var cssFrom = $('#css-from');
-    for(var i in sheets) {
+    for(var i in []) {
         var option = '<option value="' + selector + '">'
                 + sheetName + ': ' + selector + '</option>\r\n'
         cssFrom.append($(option));
