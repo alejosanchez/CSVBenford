@@ -20,14 +20,14 @@ if fileitem.filename:
     # strip leading path from file name to avoid 
     # directory traversal attacks
     fn = os.path.basename(fileitem.filename)
-    open('../csv/' + fn, 'wb').write(fileitem.file.read())
+    open(CSV_DIR + fn, 'wb').write(fileitem.file.read())
 
     print 'Status: 204\r\n\r\n' # Success, don't reload page
 
 else:
     # Error, send a message
     print """\
-Status: 200\r\n
+Status: 500\r\n
 Content-Type: text/html;charset=UTF-8\n
 <html>
 <body>
