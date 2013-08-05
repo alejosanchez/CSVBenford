@@ -19,36 +19,23 @@
 <body>
 
     <div id="header">
-      <img id="logo" src="images/benford.png" alt="Benford's Law">
+      <img style="float:left" id="logo" src="images/benford.png" alt="Benford's Law">
 
-      <h1>Análisis de Ley de Benford para datos CSV</h1>
+      <h1>Análisis de Falsificación de Datasets</h1>
+      <p>Elija un dataset existente o suba uno nuevo en formato CSV.</p>
 
     </div> <!-- header -->
 
-    <div id="upload">
-
-        <!-- Submitter form, gets HTTP 204 so it doesn't change page  -->
-        <form name="csv-file-upload" action="cgi-bin/csv-upload.py" method="post"
-                enctype="multipart/form-data">
-            <fieldset>
-                <legend>Elija el archivo CSV a analizar:</legend>
-                <input type="hidden" name="csv-name"
-                        value="csv/original/${filename}">
-                <input type="hidden" name="acl" value="public-read">
-                <input type="hidden" name="Content-Type"
-                        value="text/csv;charset=UTF-8">
-                <input type="file" name="filename"><br>
-                <input type="submit" name="submit" value="Enviar">
-            </fieldset>
-        </form>
-    </div> <!-- csv-upload -->
-
     <div id="csv-column-pick">
 
-            <select id="csv-fields" name="csv-fields">
+            <select id="csv-list" name="csv-list">
+                <option value="invalid">Dataset a analizar</option>
+            </select>
+            <p>
+            <select id="column-group" name="column-group">
                 <option value="invalid">columna a agrupar</option>
             </select>
-            <select id="css-to" name="css-to">
+            <select id="column-check" name="column-check">
                 <option value="invalid">columna numérica</option>
             </select>
             <button id="css-styles-change" disabled="disabled">Analizar</button>
@@ -56,7 +43,24 @@
 
     </div>
 
-    <!-- Submitter form, gets HTTP 204 so it doesn't change page  -->
+    <div id="upload">
+
+        <!-- Submitter form, gets HTTP 204 so it doesn't change page  -->
+        <form name="csv-file-upload" action="cgi-bin/csv-upload.py" method="post"
+                enctype="multipart/form-data">
+            <fieldset>
+                <legend>Subir un nuevo archivo CSV para analizar:</legend>
+                <input type="hidden" name="csv-name"
+                        value="csv/original/${filename}">
+                <input type="hidden" name="acl" value="public-read">
+                <input type="hidden" name="Content-Type"
+                        value="text/csv;charset=UTF-8">
+                <input type="file" name="filename" id="filename">
+                <input type="submit" name="submit" value="Enviar">
+            </fieldset>
+        </form>
+    </div> <!-- csv-upload -->
+
 
     <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="js/benford.js"></script>
