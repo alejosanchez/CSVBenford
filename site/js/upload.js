@@ -1,13 +1,16 @@
-// Eudeba epub uploader
+// Benford's Law analyzer
 $(function() {
+    uploader();
+});
 
+// Bind to an upload form, 
+function uploader() {
     uploadForm = $("form[name=csv-file-upload]");
 
     // From http://stackoverflow.com/a/16086380
     //    uploadForm.submit( function() {
     uploadForm.bind("submit", function (event) {
 
-alert('submitting...');
         var formData = new FormData($(this)[0]);
 
         $.ajax({
@@ -17,8 +20,8 @@ alert('submitting...');
             data:        formData,
             async:       false,
             success:     function (data) {
-alert('done! result:\r\n\r\n' + data);
                         // location.reload();
+                        fillColumns();
             },
             cache:       false,
             contentType: false,
@@ -28,4 +31,16 @@ alert('done! result:\r\n\r\n' + data);
         return false;
     });
 
-});
+}
+
+function fillColumns(){
+    // Find classes not belonging to tinyMCE
+    // Split the classes from original stylesheets and from eudeba.css
+
+    var cssFrom = $('#css-from');
+    for(var i in sheets) {
+        var option = '<option value="' + selector + '">'
+                + sheetName + ': ' + selector + '</option>\r\n'
+        cssFrom.append($(option));
+    }
+}
