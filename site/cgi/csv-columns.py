@@ -30,14 +30,11 @@ filename  = form.getvalue('dataset')
 f         = open(CSV_DIR + filename, 'r')
 r         = csv.reader(f, dialect=csv.excel)        # Create CSV row reader
 col_names = next(r)
-c2 = [ n.encode('utf-8') for n in col_names ]
-response  = { 'columns' : c2 }
-
 
 print '''\
 Status: 200\r
 Content-Type: application/json;charset=UTF-8\r
 \r
-{ 'columns' : [%s] }\r
-''' % ( "'" + "','".join(col_names).encode('utf-8') + "'", )
+{ "columns" : [%s] }\r
+''' % ( '"' + '","'.join(col_names).encode('utf-8') + '"', )
 
