@@ -3,7 +3,6 @@
 # Based on examples from
 # http://www.tutorialspoint.com/python/python_cgi_programming.htm
 
-import sys
 import cgi
 import os
 import cgitb
@@ -27,12 +26,12 @@ if fileitem.filename:
 else:
     # Error, send a message
     print """\
-Status: 500\r\n
-Content-Type: text/html;charset=UTF-8\n
-<html>
-<body>
-   <p>Error: No se subi&oacute; el archivo.</p>
-</body>
-</html>
-    """
+Status: 500\r
+Content-Type: text/html;charset=UTF-8\r
+<html>\r
+<body>\r
+   <p>Error: No se subi&oacute; el archivo.</p>\r
+</body>\r
+</html>\r
+"""
 
