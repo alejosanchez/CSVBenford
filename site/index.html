@@ -28,7 +28,7 @@
     <div id="upload">
 
         <!-- Submitter form, gets HTTP 204 so it doesn't change page  -->
-        <form name="csv-file-upload" action="cgi-bin/csv-benford.py" method="post"
+        <form name="csv-file-upload" action="cgi-bin/csv-upload.py" method="post"
                 enctype="multipart/form-data">
             <fieldset>
                 <legend>Elija el archivo CSV a analizar:</legend>
@@ -58,8 +58,8 @@
 
     <!-- Submitter form, gets HTTP 204 so it doesn't change page  -->
 
-    <script type="text/javascript" src="js/jquery-1.5.js"></script>
-    <script type="text/javascript" src="js/upload.js"></script>
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/benford.js"></script>
     <!-- <script type="text/javascript" src="js/benford.js"></script> -->
     
 </body>
