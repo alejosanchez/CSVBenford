@@ -153,6 +153,7 @@ function csvAddOne(fileName) {
 
 // Bind to an upload form,
 function uploader() {
+
     uploadForm = $("form[name=csv-file-upload]");
 
     // From http://stackoverflow.com/a/16086380
@@ -166,6 +167,7 @@ function uploader() {
 
         var formData = new FormData($(this)[0]);
 
+        $("#uploading").text("Uploading...");
         $.ajax({
 
             url:         $(this).attr("action"),
@@ -173,6 +175,7 @@ function uploader() {
             data:        formData,
             async:       false,
             success:     function (data) {
+                        $("#uploading").text("uploaded " + fileName + '!');
                         csvAddOne(fileName);  // Update file list, select
                         getColumns(fileName); // Get columns of new file
             },
