@@ -138,7 +138,7 @@ function checkPick() {
     if (selGroup == "invalid" || selCheck == "invalid") {
         $("#analyze-button").attr("disabled", "disabled");
     } else {
-        $("#analyze-button").removeAttr("disabled");                             
+        $("#analyze-button").removeAttr("disabled");
     }
 }
 
@@ -146,3 +146,64 @@ function columnPicked() {
     $('#column-group').change(checkPick);
     $('#column-check').change(checkPick);
 }
+
+$(function () {
+        $('#container').highcharts({
+            title: {
+                text: 'Porcentage de dígitos en datasets por columna de grupo',
+                x: -20 //center
+            },
+            subtitle: {
+                text: 'Comparados con la Ley de Benford',
+                x: -20
+            },
+            xAxis: {
+                categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9' ]
+            },
+            yAxis: {
+                title: {
+                    text: 'Porcentaje de digitos'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '%'
+            },
+            legend: {
+                layout:        'vertical',
+                align:         'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [
+                {
+                    name:    'Porcentajes esperados (Ley de Benford)',
+                    data:    [ 30.1, 17.6, 12.5, 9.7, 7.9, 6.7, 5.8, 5.1, 4.6 ]
+
+                }, {
+                    name:    'Alumnos matriculados - Mendoza',
+                    data:    [24.7, 20.1, 13.0, 8.2, 8.5, 6.9, 6.6, 6.9, 5.0],
+                    visible: false
+
+                }, {
+                    name:    'Alumnos matriculados - Ciudad de Bs. As.',
+                    data:    [29.4, 6.1, 6.6, 8.3, 11.1, 7.9, 9.2, 11.7, 9.8],
+                    visible: false
+
+                }, {
+                    name:    'Pacientes camas - Salta',
+                    data:    [31.9, 17.6, 12.1, 13.2, 7.7, 7.7, 2.2, 3.3, 4.4],
+                    visible: false
+                        
+                }, {
+                    name:    'Pacientes camas - La Rioja',
+                    data:    [19.2, 21.2, 9.6, 21.2, 9.6, 1.9, 5.8, 9.6, 1.9],
+                    visible: false
+                        
+            }]
+        });
+    });
