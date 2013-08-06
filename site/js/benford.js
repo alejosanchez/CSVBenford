@@ -3,16 +3,15 @@ $(function() {
     getCSVList();
     pickCSV();
     uploader();
+    columnPicked();
 });
 
 function pickCSV() {
 
-    var csvList = $('#csv-list');
-
     $('#csv-list').change( function() {
 
         var fileName = $(this).find(":selected").text();
-        getColumns(fileName);
+        getColumns(fileName); // Add columns of selected CSV file
     });
 }
 
@@ -34,7 +33,16 @@ function fillCSVList(csvFiles) {
     }
 }
 
-// Bind to an upload form, 
+function csvAddOne(fileName) {
+
+    var files    = $('#csv-list');     // CSV files available
+    var filesLen = document.getElementById("csv-list").length;
+    var option   = '<option value="' + filesLen + '" selected="selected">'
+                   + fileName + '</option>\r\n';
+    files.append($(option)); // Add to grouping column select
+}
+
+// Bind to an upload form,
 function uploader() {
     uploadForm = $("form[name=csv-file-upload]");
 
@@ -56,7 +64,8 @@ function uploader() {
             data:        formData,
             async:       false,
             success:     function (data) {
-                        addCSVToList(fileName);
+                        csvAddOne(fileName);  // Update file list, select
+                        getColumns(fileName); // Get columns of new file
             },
             cache:       false,
             contentType: false,
@@ -79,16 +88,22 @@ function fillColumns(columnNames) {
         group.append($(option)); // Add to grouping column select
         check.append($(option)); // Add to check column select
     }
-    group.remove('option:first');
-    check.remove('option:first');
 }
 
 function getColumns(fileName) {
+
+    clearColumns();       // Remove all columns
     $.getJSON('/cgi-bin/csv-columns.py',
               { 'dataset' : fileName },
               function (result) {
                   fillColumns(result['columns']);
               });
+}
+
+function clearColumns() {
+    // Remove all but first
+    $("#column-group").find('option:gt(0)').remove().end();
+    $("#column-check").find('option:gt(0)').remove().end();
 }
 
 // Hack to get filename from form input file element
@@ -106,4 +121,27 @@ function getFilenameInput(inputName) {
     }
     return fileName;
 }
-    
+
+function pickGroup() {
+    $('#column-group').change( function() {
+        var fileName = $(this).find(":selected").text();
+        getColumns(fileName); // Add columns of selected CSV file
+    });
+}
+
+// Checks if column picked are both valid
+function checkPick() {
+
+    var selGroup = $("#column-group").find(":selected").val();
+    var selCheck = $("#column-check").find(":selected").val();
+    if (selGroup == 'invalid' || selCheck == 'invalid') {
+        $("analyze-button").attr("disabled", "disabled");
+    } else {
+        $("analyze-button").removeAttr("disabled");                             
+    }
+}
+
+function columnPicked() {
+    $('#column-group').change(checkPick);
+    $('#column-check').change(checkPick);
+}
