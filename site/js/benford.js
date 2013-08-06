@@ -4,7 +4,116 @@ $(function() {
     pickCSV();
     uploader();
     columnPicked();
+    bindAnalyzeButton();
+    initChart();
 });
+
+function bindAnalyzeButton() {
+
+    $("#analyze-button").click(function () {
+
+        // Get the file dataset and the columns
+        var fileName  = $("#csv-list").find(":selected").text();
+        var col_group = $("#column-group").find(":selected").val();
+        var col_check = $("#column-check").find(":selected").val();
+
+        // Call the analyzer and add to chart
+        $.getJSON('/cgi-bin/csv-benford.py?'
+                + 'filename='      + fileName
+                + '&column_group=' + col_group
+                + '&column_check=' + col_check,
+                function (result) {
+                      if (result['rejected'].length > 0)
+                          alert('rejected:\r\n' + result['rejected']);
+                      addChartSeries(result['series']);
+                  });
+    });
+}
+
+function initChart() {
+    // Now draw chart
+    $('#container').highcharts({
+        title: {
+            text: 'Porcentage de dígitos en datasets por columna de grupo',
+            x: -20 //center
+        },
+        subtitle: {
+            text: 'Comparados con la Ley de Benford',
+            x: -20
+        },
+        xAxis: {
+            categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9' ]
+        },
+        yAxis: {
+            title: {
+                text: 'Porcentaje de digitos'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '%'
+        },
+        legend: {
+            layout:        'vertical',
+            align:         'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [
+            {
+                name:    'Porcentajes esperados (Ley de Benford)',
+                data:    [ 30.1, 17.6, 12.5, 9.7, 7.9, 6.7, 5.8, 5.1, 4.6 ]
+
+            }, {
+                name:    'Alumnos matriculados - Mendoza',
+                data:    [24.7, 20.1, 13.0, 8.2, 8.5, 6.9, 6.6, 6.9, 5.0],
+                visible: false
+
+            }, {
+                name:    'Alumnos matriculados - Ciudad de Bs. As.',
+                data:    [29.4, 6.1, 6.6, 8.3, 11.1, 7.9, 9.2, 11.7, 9.8],
+                visible: false
+
+            }, {
+                name:    'Pacientes camas - Salta',
+                data:    [31.9, 17.6, 12.1, 13.2, 7.7, 7.7, 2.2, 3.3, 4.4],
+                visible: false
+                    
+            }, {
+                name:    'Pacientes camas - La Rioja',
+                data:    [19.2, 21.2, 9.6, 21.2, 9.6, 1.9, 5.8, 9.6, 1.9],
+                visible: false
+                    
+        }]
+    }); // end highchart()
+}
+
+// Gets a dictionary of series
+function addChartSeries(series) {
+
+    var chart = $('#container').highcharts();
+
+    // Remove old series, but keep the first one (Benford's)
+    while(chart.series.length > 1) {
+        chart.series[1].remove(true);
+    }
+    
+    // Add all series, not visible by default
+    for(var k in series) {
+
+        var d = series[k];
+        chart.addSeries({
+                name:    k,
+                data:    d,
+                visible: false
+        });
+    }
+
+}
 
 function pickCSV() {
 
@@ -146,64 +255,3 @@ function columnPicked() {
     $('#column-group').change(checkPick);
     $('#column-check').change(checkPick);
 }
-
-$(function () {
-        $('#container').highcharts({
-            title: {
-                text: 'Porcentage de dígitos en datasets por columna de grupo',
-                x: -20 //center
-            },
-            subtitle: {
-                text: 'Comparados con la Ley de Benford',
-                x: -20
-            },
-            xAxis: {
-                categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9' ]
-            },
-            yAxis: {
-                title: {
-                    text: 'Porcentaje de digitos'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                valueSuffix: '%'
-            },
-            legend: {
-                layout:        'vertical',
-                align:         'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
-            series: [
-                {
-                    name:    'Porcentajes esperados (Ley de Benford)',
-                    data:    [ 30.1, 17.6, 12.5, 9.7, 7.9, 6.7, 5.8, 5.1, 4.6 ]
-
-                }, {
-                    name:    'Alumnos matriculados - Mendoza',
-                    data:    [24.7, 20.1, 13.0, 8.2, 8.5, 6.9, 6.6, 6.9, 5.0],
-                    visible: false
-
-                }, {
-                    name:    'Alumnos matriculados - Ciudad de Bs. As.',
-                    data:    [29.4, 6.1, 6.6, 8.3, 11.1, 7.9, 9.2, 11.7, 9.8],
-                    visible: false
-
-                }, {
-                    name:    'Pacientes camas - Salta',
-                    data:    [31.9, 17.6, 12.1, 13.2, 7.7, 7.7, 2.2, 3.3, 4.4],
-                    visible: false
-                        
-                }, {
-                    name:    'Pacientes camas - La Rioja',
-                    data:    [19.2, 21.2, 9.6, 21.2, 9.6, 1.9, 5.8, 9.6, 1.9],
-                    visible: false
-                        
-            }]
-        });
-    });
