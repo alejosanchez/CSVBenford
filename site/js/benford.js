@@ -134,10 +134,11 @@ function checkPick() {
 
     var selGroup = $("#column-group").find(":selected").val();
     var selCheck = $("#column-check").find(":selected").val();
-    if (selGroup == 'invalid' || selCheck == 'invalid') {
-        $("analyze-button").attr("disabled", "disabled");
+
+    if (selGroup == "invalid" || selCheck == "invalid") {
+        $("#analyze-button").attr("disabled", "disabled");
     } else {
-        $("analyze-button").removeAttr("disabled");                             
+        $("#analyze-button").removeAttr("disabled");                             
     }
 }
 
