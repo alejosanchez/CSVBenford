@@ -12,7 +12,7 @@ CSV_DIR = '../csv/' # CSV upload directory
 
 form = cgi.FieldStorage()
 
-fileitem = form['filename'] # Get filename
+fileitem = form['csv-file'] # Get filename
 
 # Check if the file was uploaded
 if fileitem.filename:
