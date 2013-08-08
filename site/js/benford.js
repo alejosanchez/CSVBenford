@@ -162,7 +162,7 @@ function uploader() {
         var fileName = getFilenameInput('filename');
         if ( ! /\.csv/.test(fileName) ) {
             alert('El archivo debe tener extensión ".csv"');
-            return;
+            return false;
         }
 
         var formData = new FormData($(this)[0]);
