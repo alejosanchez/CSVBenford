@@ -47,27 +47,24 @@
 
     </div>
 
-    <div id="upload">
-
-        <!-- Submitter form, gets HTTP 204 so it doesn't change page  -->
-        <form name="csv-file-upload" class="form-inline"
-              action="cgi-bin/csv-upload.py" method="post"
-                enctype="multipart/form-data">
-            <fieldset>
-                <legend>Subir un nuevo archivo CSV para analizar:</legend>
-                <input type="hidden" name="csv-name"
-                        value="csv/original/${filename}">
-                <input type="hidden" name="acl" value="public-read">
-                <input type="hidden" name="Content-Type"
-                        value="text/csv;charset=UTF-8">
-                <input type="file" name="filename" id="filename">
-                <input type="submit" name="submit"
-                       class="btn btn-default"
-                       value="Enviar">
-            </fieldset>
-        </form>
-        <p id="uploading"></p>
-    </div> <!-- csv-upload -->
+    <!-- Submitter form, gets HTTP 204 so it doesn't change page  -->
+    <form name="csv-file-upload" class="form-inline"
+          action="cgi-bin/csv-upload.py" method="post"
+            enctype="multipart/form-data">
+        <fieldset>
+            <legend>Subir un nuevo archivo CSV para analizar:</legend>
+            <input type="hidden" name="csv-name"
+                    value="csv/original/${filename}">
+            <input type="hidden" name="acl" value="public-read">
+            <input type="hidden" name="Content-Type"
+                    value="text/csv;charset=UTF-8">
+            <input type="file" name="filename" id="filename">
+            <input type="submit" name="submit"
+                   class="btn btn-default"
+                   value="Enviar">
+        </fieldset>
+        <span id="uploading"></span>
+    </form>
 
     <div id="container" style="min-width: 800px; height: 600px; margin: 0 auto"></div>
 
