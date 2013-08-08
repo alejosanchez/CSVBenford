@@ -154,16 +154,26 @@ function csvAddOne(fileName) {
 // Bind to an upload form,
 function uploader() {
 
-    uploadForm = $("form[name=csv-file-upload]");
+    fileInput = $("input:file[name=csv-file]");
 
     // From http://stackoverflow.com/a/16086380
-    uploadForm.bind("submit", function (event) {
+    fileInput.on("change", function (event) {
 
-        var fileName = getFilenameInput('filename');
+        var fileName = getFilenameInput('csv-file');
         if ( ! /\.csv/.test(fileName) ) {
             alert('El archivo debe tener extensión ".csv"');
+            clearFileInput();
+            $("input:submit").prop('disabled', true); // Invalid, disable
             return false;
         }
+
+        $("input:submit").prop("disabled", false); // Valid, enable submit
+
+    });
+
+    // Do AJAX submit
+    // From http://stackoverflow.com/a/16086380
+    $("form[name=csv-file-upload]").bind("submit", function (event) {
 
         var formData = new FormData($(this)[0]);
 
@@ -178,6 +188,7 @@ function uploader() {
                         $("#uploading").text("uploaded " + fileName + '!');
                         csvAddOne(fileName);  // Update file list, select
                         getColumns(fileName); // Get columns of new file
+                        clearFileInput();     // Clear selected file
             },
             cache:       false,
             contentType: false,
@@ -200,6 +211,13 @@ function fillColumns(columnNames) {
         group.append($(option)); // Add to grouping column select
         check.append($(option)); // Add to check column select
     }
+}
+
+// Clear selected file while preserving bound methods
+//     http://stackoverflow.com/a/1043969
+function clearFileInput() {
+    var fileInput = $("#csv-file");
+    fileInput.replaceWith(fileInput = fileInput.clone(true));
 }
 
 function getColumns(fileName) {

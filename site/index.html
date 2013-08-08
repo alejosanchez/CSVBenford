@@ -48,15 +48,17 @@
     </div>
 
     <!-- Submitter form, gets HTTP 204 so it doesn't change page  -->
-    <form name="csv-file-upload" class="form-inline"
-          action="cgi-bin/csv-upload.py" method="post"
-            enctype="multipart/form-data">
+    <form name="csv-file-upload" action="cgi-bin/csv-upload.py" method="post"
+          class="form-inline" enctype="multipart/form-data">
         <fieldset>
             <legend>Subir un nuevo archivo CSV para analizar:</legend>
-            <input type="file" name="filename" id="filename">
-            <input type="submit" name="submit"
-                   class="btn btn-default"
-                   value="Enviar">
+            <input type="file" name="csv-file" id="csv-file">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Acepto los términos y condiciones.
+              </label>
+            </div>
+            <input type="submit" value="Enviar archivo" disabled>
         </fieldset>
         <span id="uploading"></span>
     </form>
