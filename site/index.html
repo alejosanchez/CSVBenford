@@ -30,6 +30,13 @@
 
     <div id="csv-column-pick">
 
+            <div class="checkbox">
+              <label>
+                <input type="checkbox">
+                    Acepto los <a href="terms.html">términos y condiciones.</a>
+              </label>
+            </div>
+
             <select id="csv-list" name="csv-list">
                 <option value="invalid">Dataset a analizar</option>
             </select>
@@ -53,11 +60,6 @@
         <fieldset>
             <legend>Subir un nuevo archivo CSV para analizar:</legend>
             <input type="file" name="csv-file" id="csv-file">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox">Acepto los términos y condiciones.
-              </label>
-            </div>
             <input type="submit" value="Enviar archivo" disabled>
         </fieldset>
         <span id="uploading"></span>
