@@ -176,14 +176,14 @@ function uploader() {
 
     });
 
-    // Bind to terms acceptance
+    // Bind to terms acceptance, enabling/disabling upload and analyze
     $("input[type='checkbox']").change(function(e) {
 
-        if ($(this).is(":checked") && fileValid()) {
-            $("input:submit").prop("disabled", false); // Valid, enable submit
+        if ($(this).is(":checked")) {
+            $("#button-upload").removeClass("disabled"); // Enable upload
             checkPick();
         } else {
-            $("input:submit").prop("disabled", true);  // Disable
+            $("#button-upload").addClass("disabled");  // Enable upload
             $("#analyze-button").attr("disabled", "disabled");
         }
     });
