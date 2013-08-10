@@ -18,7 +18,7 @@ function bindAnalyzeButton() {
         var col_check = $("#column-check").find(":selected").val();
 
         // Call the analyzer and add to chart
-        $.getJSON('/cgi-bin/csv-benford.py?'
+        $.getJSON('/cgi-bin/csv-analyze.py?'
                 + 'filename='      + fileName
                 + '&column_group=' + col_group
                 + '&column_check=' + col_check,
