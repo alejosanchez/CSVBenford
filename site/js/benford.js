@@ -179,10 +179,13 @@ function uploader() {
     // Bind to terms acceptance
     $("input[type='checkbox']").change(function(e) {
 
-        if ($(this).is(":checked") && fileValid())
+        if ($(this).is(":checked") && fileValid()) {
             $("input:submit").prop("disabled", false); // Valid, enable submit
-        else
+            $("#analyze-button").attr("disabled", "disabled");
+        } else {
             $("input:submit").prop("disabled", true);  // Disable
+            $("#analyze-button").removeAttr("disabled");
+        }
     });
 
     // Do AJAX submit
@@ -279,10 +282,11 @@ function pickGroup() {
 // Checks if column picked are both valid
 function checkPick() {
 
-    var selGroup = $("#column-group").find(":selected").val();
-    var selCheck = $("#column-check").find(":selected").val();
+    var selGroup     = $("#column-group").find(":selected").val();
+    var selCheck     = $("#column-check").find(":selected").val();
+    var termsChecked = $("input[type='checkbox']").is(":checked");
 
-    if (selGroup == "invalid" || selCheck == "invalid") {
+    if (selGroup == "invalid" || selCheck == "invalid" || ! termsChecked) {
         $("#analyze-button").attr("disabled", "disabled");
     } else {
         $("#analyze-button").removeAttr("disabled");
