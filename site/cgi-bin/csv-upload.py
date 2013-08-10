@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # Based on examples from
 # http://www.tutorialspoint.com/python/python_cgi_programming.htm
