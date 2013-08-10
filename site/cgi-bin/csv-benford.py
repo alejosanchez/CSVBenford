@@ -12,6 +12,7 @@ from   collections import defaultdict
 from   itertools   import imap
 
 CSV_DIR = '../csv/' # CSV upload directory
+GROUPING_DEFAULT = 'todos' # No grouping column
 
 # Decimal digits with expected percentage for Benford's Law
 BF = [ 30.1, 17.6, 12.5, 9.7, 7.9, 6.7, 5.8, 5.1, 4.6 ]
@@ -55,7 +56,7 @@ class CheckError(Exception):
   
 def check_benford(r, col_n, col_v):
     '''Check if iterable (file) column col_v follows Benford's law
-       grouping by col_n.
+       grouping by col_n (-1 for no grouping).
     '''
     dd       = defaultdict(list)      # digits count
     dt       = defaultdict(lambda: 0) # total count (for percentage)
@@ -63,6 +64,7 @@ def check_benford(r, col_n, col_v):
     row_errors = 0
 
     for row in r:
+        col_n_v = GROUPING_DEFAULT # No grouping column
         try:
 
             if not row[col_v].isdigit():
@@ -73,8 +75,10 @@ def check_benford(r, col_n, col_v):
                 continue # don't count zeros
 
             val = row[col_v]
-            dd[row[col_n]].append(str(row[col_v])[0])
-            dt[row[col_n]] += 1
+            if col_n > -1:
+                col_n_v = row[col_n] # Get grouping column value
+            dd[col_n_v].append(str(row[col_v])[0])
+            dt[col_n_v] += 1
 
         except:
             row_errors += 1 # something broke

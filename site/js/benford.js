@@ -181,10 +181,10 @@ function uploader() {
 
         if ($(this).is(":checked") && fileValid()) {
             $("input:submit").prop("disabled", false); // Valid, enable submit
-            $("#analyze-button").attr("disabled", "disabled");
+            checkPick();
         } else {
             $("input:submit").prop("disabled", true);  // Disable
-            $("#analyze-button").removeAttr("disabled");
+            $("#analyze-button").attr("disabled", "disabled");
         }
     });
 
@@ -272,21 +272,13 @@ function getFilenameInput(inputName) {
     return fileName;
 }
 
-function pickGroup() {
-    $('#column-group').change( function() {
-        var fileName = $(this).find(":selected").text();
-        getColumns(fileName); // Add columns of selected CSV file
-    });
-}
-
 // Checks if column picked are both valid
 function checkPick() {
 
-    var selGroup     = $("#column-group").find(":selected").val();
     var selCheck     = $("#column-check").find(":selected").val();
     var termsChecked = $("input[type='checkbox']").is(":checked");
 
-    if (selGroup == "invalid" || selCheck == "invalid" || ! termsChecked) {
+    if (selCheck == "invalid" || ! termsChecked) {
         $("#analyze-button").attr("disabled", "disabled");
     } else {
         $("#analyze-button").removeAttr("disabled");
@@ -294,6 +286,6 @@ function checkPick() {
 }
 
 function columnPicked() {
-    $('#column-group').change(checkPick);
+    // $('#column-group').change(checkPick);
     $('#column-check').change(checkPick);
 }
