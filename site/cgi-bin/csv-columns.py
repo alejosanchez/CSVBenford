@@ -34,6 +34,7 @@ col_names = next(r)
 print '''\
 Status: 200\r
 Content-Type: application/json;charset=UTF-8\r
+Cache-Control: public, max-age=3600\r
 \r
 { "columns" : [%s] }\r
 ''' % ( '"' + '","'.join(col_names).encode('utf-8') + '"', )
