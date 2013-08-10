@@ -29,65 +29,68 @@
     </div> <!-- header -->
 
 
-    <form class="form-inline">
-      <label class="checkbox">
-         <input type="checkbox">
-             Acepto los <a href="terms.html">términos y condiciones.</a>
-         </input>
-      </label>
-    </form>
+    <div class="container">
+      <form class="form-inline">
+        <label class="checkbox">
+           <input type="checkbox">
+               Acepto los <a href="terms.html">términos y condiciones.</a>
+           </input>
+        </label>
+      </form>
     
-    <!-- Button trigger modal -->
-    <a data-toggle="modal" id="button-upload" href="#upload-modal"
-       class="btn btn-primary disabled">Subir CSV</a>
-  
-    <!-- Upload modal -->
-    <div class="modal fade" id="upload-modal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">
-                Subir un nuevo archivo CSV para analizar:</h4>
-          </div>
-          <div class="modal-body">
-
-            <!-- Submitter form, gets HTTP 204 so it doesn't change page  -->
-            <form name="csv-file-upload" action="cgi-bin/csv-upload.py" method="post"
-                  class="form-inline" enctype="multipart/form-data">
-                <fieldset>
-                    <input type="file" name="csv-file" id="csv-file">
-                    <input type="submit" value="Enviar archivo" disabled>
-                </fieldset>
-                <span id="uploading"></span>
-            </form>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+      <!-- Button trigger modal -->
+      <a data-toggle="modal" id="button-upload" href="#upload-modal"
+         class="btn btn-primary disabled">Subir CSV</a>
     
-    <div id="csv-column-pick">
-            <select id="csv-list" name="csv-list">
-                <option value="invalid">Dataset a analizar</option>
-            </select>
-            <p>
-            <span>Columna por la que se agrupa (ej. provincia)</span><br>
-            <select id="column-group" name="column-group">
-                <option value="-1">Sin agrupar</option>
-            </select><br>
-            <span>Columna que se analiza por cada grupo (ej. alumnos matriculados, votos, camas)</span><br>
-            <select id="column-check" name="column-check">
-                <option value="invalid">elija columna numérica</option>
-            </select><br>
-            <button id="analyze-button" disabled="disabled">Analizar</button>
-        </div>
+      <!-- Upload modal -->
+      <div class="modal fade" id="upload-modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">
+                  Subir un nuevo archivo CSV para analizar:</h4>
+            </div>
+            <div class="modal-body">
 
-    </div>
+              <!-- Submitter form, gets HTTP 204 so it doesn't change page  -->
+              <form name="csv-file-upload" action="cgi-bin/csv-upload.py" method="post"
+                    class="form-inline" enctype="multipart/form-data">
+                  <fieldset>
+                      <input type="file" name="csv-file" id="csv-file">
+                      <input type="submit" value="Enviar archivo" disabled>
+                  </fieldset>
+                  <span id="uploading"></span>
+              </form>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+      
+      <div id="csv-column-pick">
+              <select id="csv-list" name="csv-list">
+                  <option value="invalid">Dataset a analizar</option>
+              </select>
+              <p>
+              <span>Columna por la que se agrupa (ej. provincia)</span><br>
+              <select id="column-group" name="column-group">
+                  <option value="-1">Sin agrupar</option>
+              </select><br>
+              <span>Columna que se analiza por cada grupo (ej. alumnos matriculados, votos, camas)</span><br>
+              <select id="column-check" name="column-check">
+                  <option value="invalid">elija columna numérica</option>
+              </select><br>
+              <button id="analyze-button" disabled="disabled">Analizar</button>
+          </div>
+
+      </div>
+
+    </div> <!-- container -->
 
     <div id="container" style="min-width: 800px; height: 600px; margin: 0 auto"></div>
 
