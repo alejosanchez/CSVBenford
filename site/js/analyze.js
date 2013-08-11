@@ -105,14 +105,25 @@ function addChartSeries(series) {
         chart.series[1].remove(true);
     }
     
-    // Add all series, not visible by default
+    //
+    // Add all series
+    //
+    var series_length = 0;     // How many series are in result
+    for(var k in series) {
+        series_length++;
+    }
+
+    var visibility = false;       // not visible by default
+    if (series_length == 1)
+        visibility = true;        // if only one series make it visible
+
     for(var k in series) {
 
         var d = series[k];
         chart.addSeries({
                 name:    k,
                 data:    d,
-                visible: false
+                visible: visibility
         });
     }
 
