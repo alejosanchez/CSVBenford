@@ -27,6 +27,9 @@ function bindAnalyzeButton() {
                           alert('rejected:\r\n' + result['rejected']);
                       addChartSeries(result['series']);
                   });
+
+        return false; // Prevent form submission
+
     });
 }
 
